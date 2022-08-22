@@ -1,17 +1,67 @@
 import React, { useState } from 'react';
 
 function SearchInput() {
-  // const { btnSearchinput, setBtnSearchInput } = useState('');
   const [inputSearch, setInputSearch] = useState('');
 
-  // function handleChange({ target }) {
-  //   const valueSearch = target.value;
-  //   setBtnSearchInput(valueSearch);
+  // Estados para controlar os input-radios
+  const [ingredient, setIngredient] = useState(false);
+  const [name, setName] = useState(false);
+  const [firstLetter, setFirstLetter] = useState(false);
 
   function handleInputSearch({ target }) {
     const { value } = target;
     setInputSearch(value);
   }
+
+  // Funções para alterar o estados dos input-radios
+  function handleChangeIngredient() {
+    setIngredient(true);
+  }
+
+  function handleChangeName() {
+    setName(true);
+  }
+
+  function handleChangeFirst() {
+    setFirstLetter(true);
+  }
+
+  // Função submit para realizar o fetch das api's
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    if (ingredient === true) {
+      if (inputSearch === 'chicken') {
+        const url = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=chicken';
+        const response = await fetch(url);
+        const json = await response.json();
+        return json;
+      }
+      const url = `https://www.themealdb.com/api/json/v1/1/filter.php?i={${inputSearch}}`;
+      const response = await fetch(url);
+      const json = await response.json();
+      return json;
+    }
+
+    if (name === true) {
+      const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputSearch}`;
+      const response = await fetch(url);
+      const json = await response.json();
+      return json;
+    }
+
+    if (firstLetter === true) {
+      if (inputSearch.length > 1) {
+        global.alert('Your search must have only 1 (one) character');
+      } else {
+        const url = `https://www.themealdb.com/api/json/v1/1/search.php?f=${inputSearch}`;
+        const response = await fetch(url);
+        const json = await response.json();
+        return json;
+      }
+    }
+  }
+
   return (
     <form>
       <label htmlFor="search-input">
@@ -32,6 +82,8 @@ function SearchInput() {
           data-testid="ingredient-search-radio"
           type="radio"
           name="search-input"
+          value={ ingredient }
+          onChange={ handleChangeIngredient }
         />
       </label>
 
@@ -42,6 +94,8 @@ function SearchInput() {
           data-testid="name-search-radio"
           type="radio"
           name="search-input"
+          value={ name }
+          onChange={ handleChangeName }
         />
       </label>
 
@@ -52,10 +106,12 @@ function SearchInput() {
           data-testid="first-letter-search-radio"
           type="radio"
           name="search-input"
+          value={ firstLetter }
+          onChange={ handleChangeFirst }
         />
       </label>
 
-      <button type="submit" data-testid="exec-search-btn">
+      <button onClick={ handleSubmit } type="submit" data-testid="exec-search-btn">
         Search
       </button>
     </form>
