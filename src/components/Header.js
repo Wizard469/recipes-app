@@ -13,7 +13,11 @@ function Header(props) {
     <div>
       <div className="profile-icon-container">
         <Link to="/profile">
-          <img data-testid="profile-top-btn" src={ profileIcon } alt="imagem" />
+          <img
+            data-testid="profile-top-btn"
+            src={ profileIcon }
+            alt="imagem profile"
+          />
         </Link>
       </div>
       <br />

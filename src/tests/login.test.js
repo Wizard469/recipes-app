@@ -46,6 +46,6 @@ describe('Teste da página Login.js', () => {
     const buttonEnter = screen.getByRole('button', { name: /enter/i });
     userEvent.click(buttonEnter);
     const { location: { pathname } } = history;
-    expect(pathname).toBe('/');
+    expect(pathname).toBe('/foods');
   });
 });
