@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
 
 function SearchInput() {
-  // const { btnSearchinput, setBtnSearchInput } = useState('');
   const [inputSearch, setInputSearch] = useState('');
+
+  // Estados para controlar os input-radios
   const [ingredient, setIngredient] = useState(false);
   const [name, setName] = useState(false);
   const [firstLetter, setFirstLetter] = useState(false);
-
-  // function handleChange({ target }) {
-  //   const valueSearch = target.value;
-  //   setBtnSearchInput(valueSearch);
 
   function handleInputSearch({ target }) {
     const { value } = target;
     setInputSearch(value);
   }
 
+  // Funções para alterar o estados dos input-radios
   function handleChangeIngredient() {
     setIngredient(true);
   }
@@ -28,6 +26,7 @@ function SearchInput() {
     setFirstLetter(true);
   }
 
+  // Função submit para realizar o fetch das api's
   async function handleSubmit(e) {
     e.preventDefault();
 
