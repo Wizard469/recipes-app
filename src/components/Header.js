@@ -6,6 +6,7 @@ import searchIcon from '../images/searchIcon.svg';
 
 function Header(props) {
   const { pageTitle, showSearch } = props;
+
   return (
     <div>
       <div className="profile-icon-container">
@@ -20,7 +21,11 @@ function Header(props) {
       <br />
       {showSearch ? (
         <div className="search-icon-container">
-          <img data-testid="search-top-btn" src={ searchIcon } alt="imagem search" />
+          <img
+            data-testid="search-top-btn"
+            src={ searchIcon }
+            alt="imagem search"
+          />
         </div>) : ('')}
       <p data-testid="page-title">{pageTitle}</p>
     </div>
