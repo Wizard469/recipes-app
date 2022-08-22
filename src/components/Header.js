@@ -10,13 +10,17 @@ function Header(props) {
     <div>
       <div className="profile-icon-container">
         <Link to="/profile">
-          <img data-testid="profile-top-btn" src={ profileIcon } alt="imagem" />
+          <img
+            data-testid="profile-top-btn"
+            src={ profileIcon }
+            alt="imagem profile"
+          />
         </Link>
       </div>
       <br />
       {showSearch ? (
         <div className="search-icon-container">
-          <img data-testid="search-top-btn" src={ searchIcon } alt="imagem" />
+          <img data-testid="search-top-btn" src={ searchIcon } alt="imagem search" />
         </div>) : ('')}
       <p data-testid="page-title">{pageTitle}</p>
     </div>
