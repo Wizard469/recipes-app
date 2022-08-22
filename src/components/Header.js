@@ -1,24 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import Search from './Search';
 
 function Header(props) {
   const { pageTitle, showSearch } = props;
+  const [search, setSearch] = useState(false);
+
   return (
     <div>
       <div className="profile-icon-container">
         <Link to="/profile">
-          <img data-testid="profile-top-btn" src={ profileIcon } alt="imagem" />
+          <img
+            data-testid="profile-top-btn"
+            src={ profileIcon }
+            alt="imagem profile"
+          />
         </Link>
       </div>
       <br />
       {showSearch ? (
         <div className="search-icon-container">
-          <img data-testid="search-top-btn" src={ searchIcon } alt="imagem" />
+          <input
+            type="image"
+            data-testid="search-top-btn"
+            src={ searchIcon }
+            alt="imagem"
+            onClick={ () => setSearch((prevState) => !prevState) }
+          />
         </div>) : ('')}
+
       <p data-testid="page-title">{pageTitle}</p>
+
+      {search && <Search />}
     </div>
   );
 }
@@ -26,10 +42,6 @@ function Header(props) {
 Header.propTypes = {
   pageTitle: PropTypes.string.isRequired,
   showSearch: PropTypes.bool.isRequired,
-  history: PropTypes.shape(
-    { push: PropTypes.func },
-  ).isRequired,
-
 };
 
 export default Header;
