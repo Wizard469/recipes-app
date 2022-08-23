@@ -38,7 +38,6 @@ function Header(props) {
     </div>
   );
 }
-
 Header.propTypes = {
   pageTitle: PropTypes.string.isRequired,
   showSearch: PropTypes.bool.isRequired,
