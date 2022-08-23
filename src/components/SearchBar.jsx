@@ -121,7 +121,7 @@ function SearchBar({ history }) {
           data-testid="ingredient-search-radio"
           type="radio"
           name="search-input"
-          value={ ingredient }
+          value="ingredient "
           onChange={ handleChangeIngredient }
         />
       </label>

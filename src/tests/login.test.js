@@ -48,4 +48,13 @@ describe('Teste da página Login.js', () => {
     const { location: { pathname } } = history;
     expect(pathname).toBe('/foods');
   });
+  it('Verifica se todos os elementos estão sendo renderizados', () => {
+    renderWithRouter(<App />);
+    const emailInput = screen.getByTestId('email-input');
+    const loginButton = screen.getByTestId('login-submit-btn');
+    const passWordInput = screen.getByTestId('password-input');
+    expect(emailInput).toBeDefined();
+    expect(loginButton).toBeDefined();
+    expect(passWordInput).toBeDefined();
+  });
 });

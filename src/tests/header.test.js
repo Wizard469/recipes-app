@@ -7,7 +7,8 @@ import userEvent from '@testing-library/user-event';
 describe('Header', () => {
    it('Ao navegar para a rota /foods, o cabeçalho e os botões especificados estão presentes',
     () => {
-      renderWithRouter(<App />)
+      const {history} = renderWithRouter(<App />)
+      history.push('/foods')
 
       expect(screen.getByTestId('profile-top-btn')).toBeInTheDocument();
       expect(screen.getByTestId('page-title')).toBeInTheDocument();
