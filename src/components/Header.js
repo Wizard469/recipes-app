@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import Search from './Search';
+import SearchBar from './SearchBar';
 
 function Header(props) {
-  const { pageTitle, showSearch } = props;
+  const { history, pageTitle, showSearch } = props;
   const [search, setSearch] = useState(false);
 
   return (
@@ -34,7 +34,7 @@ function Header(props) {
 
       <p data-testid="page-title">{pageTitle}</p>
 
-      {search && <Search />}
+      {search && <SearchBar history={ history } />}
     </div>
   );
 }
@@ -42,6 +42,7 @@ function Header(props) {
 Header.propTypes = {
   pageTitle: PropTypes.string.isRequired,
   showSearch: PropTypes.bool.isRequired,
+  history: PropTypes.shape({}).isRequired,
 };
 
 export default Header;

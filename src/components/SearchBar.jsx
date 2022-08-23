@@ -1,6 +1,7 @@
+import PropTypes, { shape } from 'prop-types';
 import React, { useState } from 'react';
 
-function SearchInput() {
+function SearchBar({ history }) {
   const [inputSearch, setInputSearch] = useState('');
 
   // Estados para controlar os input-radios
@@ -26,10 +27,8 @@ function SearchInput() {
     setFirstLetter(true);
   }
 
-  // Função submit para realizar o fetch das api's
-  async function handleSubmit(e) {
-    e.preventDefault();
-
+  // Função que faz a requisição das foods
+  async function requestFoods() {
     if (ingredient === true) {
       if (inputSearch === 'chicken') {
         const url = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=chicken';
@@ -59,6 +58,46 @@ function SearchInput() {
         const json = await response.json();
         return json;
       }
+    }
+  }
+
+  // Função que faz a requisição das drinks
+  async function requestDrinks() {
+    if (ingredient === true) {
+      const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${inputSearch}`;
+      const response = await fetch(url);
+      const json = await response.json();
+      return json;
+    }
+
+    if (name === true) {
+      const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputSearch}`;
+      const response = await fetch(url);
+      const json = await response.json();
+      return json;
+    }
+
+    if (firstLetter === true) {
+      if (inputSearch.length > 1) {
+        global.alert('Your search must have only 1 (one) character');
+      } else {
+        const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${inputSearch}`;
+        const response = await fetch(url);
+        const json = await response.json();
+        return json;
+      }
+    }
+  }
+
+  // Função submit para realizar o fetch das api's
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const { location: { pathname } } = history;
+
+    if (pathname === '/foods') {
+      requestFoods();
+    } else if (pathname === '/drinks') {
+      requestDrinks();
     }
   }
 
@@ -118,4 +157,8 @@ function SearchInput() {
   );
 }
 
-export default SearchInput;
+SearchBar.propTypes = {
+  history: PropTypes.shape({ location: shape({}) }).isRequired,
+};
+
+export default SearchBar;
