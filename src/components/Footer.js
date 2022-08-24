@@ -6,7 +6,6 @@ import mealIcon from '../images/mealIcon.svg';
 
 function Footer() {
   const history = useHistory();
-
   const drinksButton = () => {
     history.push('/drinks');
   };
