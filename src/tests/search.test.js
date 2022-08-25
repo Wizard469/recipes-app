@@ -1,6 +1,6 @@
-import { screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import React from 'react';
+import userEvent from '@testing-library/user-event';
+import { screen } from '@testing-library/react';
 import App from '../App';
 import renderWithRouter from '../helpers/renderWithRouter';
 import { meals } from './mocks/apiResponse';
