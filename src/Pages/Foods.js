@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { shape, func } from 'prop-types';
 import React, { Component } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -18,5 +18,7 @@ export default class Comidas extends Component {
 }
 
 Comidas.propTypes = {
-  history: PropTypes.shape({}).isRequired,
-};
+  history: shape({
+    push: func,
+  }),
+}.isRequired;
