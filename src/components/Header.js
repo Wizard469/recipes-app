@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import { bool, string, func, shape } from 'prop-types';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
@@ -38,10 +38,14 @@ function Header(props) {
     </div>
   );
 }
+
 Header.propTypes = {
-  pageTitle: PropTypes.string.isRequired,
-  showSearch: PropTypes.bool.isRequired,
-  history: PropTypes.shape({}).isRequired,
-};
+  pageTitle: string,
+  showSearch: bool,
+  history: shape({
+    location: string,
+    push: func,
+  }),
+}.isRequired;
 
 export default Header;

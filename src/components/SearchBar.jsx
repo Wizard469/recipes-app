@@ -1,55 +1,55 @@
-import PropTypes, { shape } from 'prop-types';
+import { shape, string, func } from 'prop-types';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
-function SearchBar({ history }) {
+function SearchBar() {
   const [inputSearch, setInputSearch] = useState('');
+  const history = useHistory();
 
   // Estados para controlar os input-radios
-  const [ingredient, setIngredient] = useState(false);
-  const [name, setName] = useState(false);
-  const [firstLetter, setFirstLetter] = useState(false);
+  // const [ingredient, setIngredient] = useState(false);
+  // const [name, setName] = useState(false);
+  // const [firstLetter, setFirstLetter] = useState(false);
+  const [toggleOptions, setToggleOptions] = useState('');
 
-  function handleInputSearch({ target }) {
-    const { value } = target;
+  function handleInputSearch({ target: { value } }) {
     setInputSearch(value);
   }
 
   // Funções para alterar o estados dos input-radios
-  function handleChangeIngredient() {
-    setIngredient(true);
-  }
+  // function handleChangeIngredient() {
+  //   setIngredient(true);
+  // }
 
-  function handleChangeName() {
-    setName(true);
-  }
+  // function handleChangeName() {
+  //   setName(true);
+  // }
 
-  function handleChangeFirst() {
-    setFirstLetter(true);
+  // function handleChangeFirst() {
+  //   setFirstLetter(true);
+  // }
+
+  function handleToggleState(e) {
+    setToggleOptions(e.target.value);
   }
 
   // Função que faz a requisição das foods
   async function requestFoods() {
-    if (ingredient === true) {
-      if (inputSearch === 'chicken') {
-        const url = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=chicken';
-        const response = await fetch(url);
-        const json = await response.json();
-        return json;
-      }
-      const url = `https://www.themealdb.com/api/json/v1/1/filter.php?i={${inputSearch}}`;
+    if (toggleOptions === 'ingredient') {
+      const url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputSearch}`;
       const response = await fetch(url);
       const json = await response.json();
       return json;
     }
 
-    if (name === true) {
+    if (toggleOptions === 'name') {
       const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputSearch}`;
       const response = await fetch(url);
       const json = await response.json();
       return json;
     }
 
-    if (firstLetter === true) {
+    if (toggleOptions === 'first-letter') {
       if (inputSearch.length > 1) {
         global.alert('Your search must have only 1 (one) character');
       } else {
@@ -63,21 +63,21 @@ function SearchBar({ history }) {
 
   // Função que faz a requisição das drinks
   async function requestDrinks() {
-    if (ingredient === true) {
+    if (toggleOptions === 'ingredient') {
       const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${inputSearch}`;
       const response = await fetch(url);
       const json = await response.json();
       return json;
     }
 
-    if (name === true) {
+    if (toggleOptions === 'name') {
       const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputSearch}`;
       const response = await fetch(url);
       const json = await response.json();
       return json;
     }
 
-    if (firstLetter === true) {
+    if (toggleOptions === 'first-letter') {
       if (inputSearch.length > 1) {
         global.alert('Your search must have only 1 (one) character');
       } else {
@@ -95,9 +95,17 @@ function SearchBar({ history }) {
     const { location: { pathname } } = history;
 
     if (pathname === '/foods') {
-      requestFoods();
+      const response = await requestFoods();
+
+      if (response && response.meals.length === 1) {
+        history.push(`/foods/${response.meals[0].idMeal}`);
+      }
     } else if (pathname === '/drinks') {
-      requestDrinks();
+      const response = await requestDrinks();
+
+      if (response && response.drinks.length === 1) {
+        history.push(`/drinks/${response.drinks[0].idDrink}`);
+      }
     }
   }
 
@@ -121,8 +129,8 @@ function SearchBar({ history }) {
           data-testid="ingredient-search-radio"
           type="radio"
           name="search-input"
-          value="ingredient "
-          onChange={ handleChangeIngredient }
+          value="ingredient"
+          onChange={ handleToggleState }
         />
       </label>
 
@@ -133,8 +141,8 @@ function SearchBar({ history }) {
           data-testid="name-search-radio"
           type="radio"
           name="search-input"
-          value={ name }
-          onChange={ handleChangeName }
+          value="name"
+          onChange={ handleToggleState }
         />
       </label>
 
@@ -145,8 +153,8 @@ function SearchBar({ history }) {
           data-testid="first-letter-search-radio"
           type="radio"
           name="search-input"
-          value={ firstLetter }
-          onChange={ handleChangeFirst }
+          value="first-letter"
+          onChange={ handleToggleState }
         />
       </label>
 
@@ -158,7 +166,10 @@ function SearchBar({ history }) {
 }
 
 SearchBar.propTypes = {
-  history: PropTypes.shape({ location: shape({}) }).isRequired,
-};
+  history: shape({
+    location: string,
+    push: func,
+  }),
+}.isRequired;
 
 export default SearchBar;

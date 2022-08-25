@@ -1,159 +1,151 @@
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import App from '../App';
-import Search from '../components/Search';
-import { renderWithRouter } from '../helpers/renderWithRouter';
-import { meals, meal } from './mocks/apiResponse';
+import renderWithRouter from '../helpers/renderWithRouter';
+import { meals } from './mocks/apiResponse';
+import oneDrink from "../../cypress/mocks/oneDrink";
+import drinks from "../../cypress/mocks/drinks";
+import oneMeal from "../../cypress/mocks/oneMeal";
 
 afterEach(() => jest.clearAllMocks());
 
-const inputTestId = 'search-input';
-const ingredientTestId = 'ingredient-search-radio';
-const nameTestId = 'name-search-radio';
-const letterTestId = 'first-letter-search-radio';
-const buttonTestId = 'exec-search-btn';
-const three = 3;
-
-describe('Search', () => {
-  it('testa se renderiza com os elementos', () => {
-    renderWithRouter(<Search />);
-
-    const inputText = screen.getByTestId(inputTestId);
-    const ingredientRadio = screen.getByTestId(ingredientTestId);
-    const nameRadio = screen.getByTestId(nameTestId);
-    const firstLetter = screen.getByTestId(letterTestId);
-    const button = screen.getByTestId(buttonTestId);
-
-    expect(inputText).toBeInTheDocument();
-    expect(ingredientRadio).toBeInTheDocument();
-    expect(nameRadio).toBeInTheDocument();
-    expect(firstLetter).toBeInTheDocument();
-    expect(button).toBeInTheDocument();
+describe('SearchBar', () => {
+it('Renderiza componente SearchBar', () => {
+  jest.spyOn(global, 'fetch').mockResolvedValue({
+    json: jest.fn().mockResolvedValue(meals),
   });
+  jest.spyOn(global, 'alert').mockImplementation(() => {});
 
-  it('testa se é feita a requisição correta quando o usuário está na página de comidas', () => {
-    global.fetch = jest.fn(async () => ({
-      json: async () => meals,
-    }));
+  renderWithRouter(<App />);
+  const emailInput = screen.getByTestId('email-input');
+  const passwordInput = screen.getByTestId('password-input');
+  const loginBtn = screen.getByTestId('login-submit-btn');
+  userEvent.type(emailInput, 'test@test.com');
+  userEvent.type(passwordInput, '1234567');
 
-    renderWithRouter(<Search />,
-      { location: { pathname: { history: '/foods' } } });
+  userEvent.click(loginBtn);
+  const searchBtn = screen.getByTestId('search-top-btn');
+  userEvent.click(searchBtn);
+  const searchButton = screen.getByTestId('exec-search-btn');
+  userEvent.click(searchButton);
 
-      const inputText = screen.getByTestId(inputTestId);
-      const ingredientRadio = screen.getByTestId(ingredientTestId);
-      const nameRadio = screen.getByTestId(nameTestId);
-      const firstLetter = screen.getByTestId(letterTestId);
-      const button = screen.getByTestId(buttonTestId);
+  const firstLetterOption = screen.getByTestId('first-letter-search-radio');
+  const ingredientOption = screen.getByTestId('ingredient-search-radio');
+  const searchInput = screen.getByTestId('search-input');
 
-    userEvent.type(inputText, 'chicken');
-    userEvent.click(ingredientRadio);
-    userEvent.click(button);
+  userEvent.type(searchInput, 'c');
+  userEvent.click(firstLetterOption);
+  userEvent.click(searchButton);
 
-    expect(fetch).toHaveBeenCalled();
-    expect(fetch).toHaveBeenCalledTimes(1);
-    expect(fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/filter.php?i=chicken');
+  userEvent.type(searchInput, 'ch');
+  userEvent.click(firstLetterOption);
+  userEvent.click(searchButton);
 
-    userEvent.click(nameRadio);
-    userEvent.click(button);
+  userEvent.type(searchInput, 'chicken');
+  userEvent.click(ingredientOption);
+  userEvent.click(searchButton);
 
-    expect(fetch).toHaveBeenCalled();
-    expect(fetch).toHaveBeenCalledTimes(2);
-    expect(fetch).toHaveBeenLastCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?s=chicken');
+  userEvent.type(searchInput, 'Arrabiata');
+  const nameOption = screen.getByTestId('name-search-radio');
+  userEvent.click(nameOption);
+  userEvent.click(searchButton);
+});
 
-    userEvent.clear(inputText);
-    userEvent.type(inputText, 'c');
-    userEvent.click(firstLetter);
-    userEvent.click(button);
-
-    expect(fetch).toHaveBeenCalled();
-    expect(fetch).toHaveBeenCalledTimes(three);
-    expect(fetch).toHaveBeenLastCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?f=c');
+it('Renderiza componente SearchBar', () => {
+  jest.spyOn(global, 'fetch').mockResolvedValue({
+    json: jest.fn().mockResolvedValue(drinks),
   });
+  jest.spyOn(global, 'alert').mockImplementation(() => {});
 
-  it('testa se é feita a requisição correta quando o usuário está na página de bebidas', () => {
-    global.fetch = jest.fn(async () => ({
-      json: async () => meals,
-    }));
+  renderWithRouter(<App />);
+  const emailInput = screen.getByTestId('email-input');
+  const passwordInput = screen.getByTestId('password-input');
+  const loginBtn = screen.getByTestId('login-submit-btn');
+  userEvent.type(emailInput, 'test@test.com');
+  userEvent.type(passwordInput, '1234567');
 
-    renderWithRouter(<Search />,
-      { initialState: { header: { pathname: '/drinks' } } });
+  userEvent.click(loginBtn);
+  const drinksPage = screen.getByTestId('drinks-bottom-btn');
+  userEvent.click(drinksPage);
 
-      const inputText = screen.getByTestId(inputTestId);
-      const ingredientRadio = screen.getByTestId(ingredientTestId);
-      const nameRadio = screen.getByTestId(nameTestId);
-      const firstLetter = screen.getByTestId(letterTestId);
-      const button = screen.getByTestId(buttonTestId);
+  const searchBtn = screen.getByTestId('search-top-btn');
+  userEvent.click(searchBtn);
+  const searchButton = screen.getByTestId('exec-search-btn');
+  userEvent.click(searchButton);
 
-    userEvent.type(inputText, 'beer');
-    userEvent.click(ingredientRadio);
-    userEvent.click(button);
+  const firstLetterOption = screen.getByTestId('first-letter-search-radio');
+  const ingredientOption = screen.getByTestId('ingredient-search-radio');
+  const searchInput = screen.getByTestId('search-input');
 
-    expect(fetch).toHaveBeenCalled();
-    expect(fetch).toHaveBeenCalledTimes(1);
-    expect(fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=beer');
+  userEvent.type(searchInput, 'w');
+  userEvent.click(firstLetterOption);
+  userEvent.click(searchButton);
 
-    userEvent.click(nameRadio);
-    userEvent.click(button);
+  userEvent.type(searchInput, 'wi');
+  userEvent.click(firstLetterOption);
+  userEvent.click(searchButton);
 
-    expect(fetch).toHaveBeenCalled();
-    expect(fetch).toHaveBeenCalledTimes(2);
-    expect(fetch).toHaveBeenLastCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=beer');
+  userEvent.type(searchInput, 'Wine');
+  userEvent.click(ingredientOption);
+  userEvent.click(searchButton);
+});
 
-    userEvent.clear(inputText);
-    userEvent.type(inputText, 'b');
-    userEvent.click(firstLetter);
-    userEvent.click(button);
-
-    expect(fetch).toHaveBeenCalled();
-    expect(fetch).toHaveBeenCalledTimes(three);
-    expect(fetch).toHaveBeenLastCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?f=b');
+it('renderiza só um drink', () => {
+  jest.spyOn(global, 'fetch').mockResolvedValue({
+    json: jest.fn().mockResolvedValue(oneDrink),
   });
+  jest.spyOn(global, 'alert').mockImplementation(() => {});
 
-  it('testa se aparece o alerta quando o  usuário tenta buscar com mais de uma letra', () => {
-    global.alert = jest.fn();
+  renderWithRouter(<App />);
+  const emailInput = screen.getByTestId('email-input');
+  const passwordInput = screen.getByTestId('password-input');
+  const loginBtn = screen.getByTestId('login-submit-btn');
+  userEvent.type(emailInput, 'test@test.com');
+  userEvent.type(passwordInput, '1234567');
 
-    renderWithRouterAndRedux(<SearchBar />);
+  userEvent.click(loginBtn);
 
-    const inputText = screen.getByTestId(inputTestId)
-    const firstLetter = screen.getByTestId(letterTestId);
-    const button = screen.getByTestId(buttonTestId);
-    const alertMessage = 'Your search must have only 1 (one) character';
+  const drinksPage = screen.getByTestId('drinks-bottom-btn');
+  userEvent.click(drinksPage);
 
-    userEvent.type(inputText, 'ingredient y');
-    userEvent.click(firstLetter);
-    userEvent.click(button);
 
-    expect(alert).toHaveBeenCalled();
-    expect(alert).toHaveBeenCalledTimes(1);
-    expect(alert).toHaveBeenCalledWith(alertMessage);
+  const searchBtn = screen.getByTestId('search-top-btn');
+  userEvent.click(searchBtn);
+  const searchButton = screen.getByTestId('exec-search-btn');
+  userEvent.click(searchButton);
+  const searchInput = screen.getByTestId('search-input');
+
+  userEvent.type(searchInput, 'Aquamarine');
+  const nameOption = screen.getByTestId('name-search-radio');
+  userEvent.click(nameOption);
+  userEvent.click(searchButton);
+});
+
+it('renderiza só um meal', () => {
+  jest.spyOn(global, 'fetch').mockResolvedValue({
+    json: jest.fn().mockResolvedValue(oneMeal),
   });
+  jest.spyOn(global, 'alert').mockImplementation(() => {});
 
-  
-  it(`testa se o usuário é redirecionado para a página de detalhes caso a busca retorne
-  um único resultado`, async () => {
-    global.fetch = jest.fn(async () => ({
-      json: async () => meal,
-    }));
+  renderWithRouter(<App />);
+  const emailInput = screen.getByTestId('email-input');
+  const passwordInput = screen.getByTestId('password-input');
+  const loginBtn = screen.getByTestId('login-submit-btn');
+  userEvent.type(emailInput, 'test@test.com');
+  userEvent.type(passwordInput, '1234567');
 
-    const { history } = await waitFor(() => renderWithRouter(<App />));
+  userEvent.click(loginBtn);
 
-    history.push('/foods');
+  const searchBtn = screen.getByTestId('search-top-btn');
+  userEvent.click(searchBtn);
+  const searchButton = screen.getByTestId('exec-search-btn');
+  userEvent.click(searchButton);
+  const searchInput = screen.getByTestId('search-input');
 
-    const searchTopbtn = screen.getByTestId('search-top-btn');
-
-    userEvent.click(searchTopbtn);
-
-    const inputText = screen.getByTestId(inputTestId)
-    const ingredientRadio = screen.getByTestId(ingredientTestId);
-    const button = screen.getByTestId(buttonTestId);
-
-    userEvent.type(inputText, 'cheese');
-    userEvent.click(ingredientRadio);
-    userEvent.click(button);
-
-    const { location: { pathname } } = history;
-
-    expect(pathname).toBe('/foods/52882');
-  });
+  userEvent.type(searchInput, 'Spicy Arrabiata Penne');
+  const nameOption = screen.getByTestId('name-search-radio');
+  userEvent.click(nameOption);
+  userEvent.click(searchButton);
+});
 });
