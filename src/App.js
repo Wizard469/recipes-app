@@ -10,20 +10,23 @@ import Drinks from './Pages/Drinks';
 import Profile from './Pages/Profile';
 import DoneRecipes from './Pages/DoneRecipes';
 import FavoriteRecipes from './Pages/FavoriteRecipes';
+import CategoryProvider from './context/CategoryProvider';
 
 function App() {
   return (
     <div className="meals">
       <Switch>
         <Provider>
-          <Route exact path="/" component={ Login } />
-          <Route exact path="/foods" component={ Foods } />
-          <Route exact path="/drinks" component={ Drinks } />
-          <Route path="/foods/:id/in-progress" component={ RecipeInProgress } />
-          <Route path="/drinks/:id/in-progress" component={ RecipeInProgress } />
-          <Route path="/profile" component={ Profile } />
-          <Route path="/done-recipes" component={ DoneRecipes } />
-          <Route path="/favorite-recipes" component={ FavoriteRecipes } />
+          <CategoryProvider>
+            <Route exact path="/" component={ Login } />
+            <Route exact path="/foods" component={ Foods } />
+            <Route exact path="/drinks" component={ Drinks } />
+            <Route path="/foods/:id/in-progress" component={ RecipeInProgress } />
+            <Route path="/drinks/:id/in-progress" component={ RecipeInProgress } />
+            <Route path="/profile" component={ Profile } />
+            <Route path="/done-recipes" component={ DoneRecipes } />
+            <Route path="/favorite-recipes" component={ FavoriteRecipes } />
+          </CategoryProvider>
         </Provider>
       </Switch>
     </div>
