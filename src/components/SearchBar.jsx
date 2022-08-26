@@ -1,164 +1,73 @@
-import PropTypes, { shape } from 'prop-types';
-import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import React, { useContext, useState } from 'react';
+import context from '../context/Context';
 
-function SearchBar({ history }) {
-  const [inputSearch, setInputSearch] = useState('');
+function SearchBar({ nameBtn }) {
+  const { setFilterFood, changeSearch, setPageActual } = useContext(context);
+  const [type, setType] = useState('');
+  const [filter, setFilter] = useState('');
 
-  // Estados para controlar os input-radios
-  const [ingredient, setIngredient] = useState(false);
-  const [name, setName] = useState(false);
-  const [firstLetter, setFirstLetter] = useState(false);
-
-  function handleInputSearch({ target }) {
-    const { value } = target;
-    setInputSearch(value);
-  }
-
-  // Funções para alterar o estados dos input-radios
-  function handleChangeIngredient() {
-    setIngredient(true);
-  }
-
-  function handleChangeName() {
-    setName(true);
-  }
-
-  function handleChangeFirst() {
-    setFirstLetter(true);
-  }
-
-  // Função que faz a requisição das foods
-  async function requestFoods() {
-    if (ingredient === true) {
-      if (inputSearch === 'chicken') {
-        const url = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=chicken';
-        const response = await fetch(url);
-        const json = await response.json();
-        return json;
-      }
-      const url = `https://www.themealdb.com/api/json/v1/1/filter.php?i={${inputSearch}}`;
-      const response = await fetch(url);
-      const json = await response.json();
-      return json;
-    }
-
-    if (name === true) {
-      const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputSearch}`;
-      const response = await fetch(url);
-      const json = await response.json();
-      return json;
-    }
-
-    if (firstLetter === true) {
-      if (inputSearch.length > 1) {
-        global.alert('Your search must have only 1 (one) character');
-      } else {
-        const url = `https://www.themealdb.com/api/json/v1/1/search.php?f=${inputSearch}`;
-        const response = await fetch(url);
-        const json = await response.json();
-        return json;
-      }
-    }
-  }
-
-  // Função que faz a requisição das drinks
-  async function requestDrinks() {
-    if (ingredient === true) {
-      const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${inputSearch}`;
-      const response = await fetch(url);
-      const json = await response.json();
-      return json;
-    }
-
-    if (name === true) {
-      const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputSearch}`;
-      const response = await fetch(url);
-      const json = await response.json();
-      return json;
-    }
-
-    if (firstLetter === true) {
-      if (inputSearch.length > 1) {
-        global.alert('Your search must have only 1 (one) character');
-      } else {
-        const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${inputSearch}`;
-        const response = await fetch(url);
-        const json = await response.json();
-        return json;
-      }
-    }
-  }
-
-  // Função submit para realizar o fetch das api's
-  async function handleSubmit(e) {
-    e.preventDefault();
-    const { location: { pathname } } = history;
-
-    if (pathname === '/foods') {
-      requestFoods();
-    } else if (pathname === '/drinks') {
-      requestDrinks();
-    }
-  }
+  const handleClick = (btn) => {
+    changeSearch(type);
+    setFilterFood(filter);
+    setPageActual(btn);
+  };
 
   return (
-    <form>
-      <label htmlFor="search-input">
+    <div>
+      <input
+        type="text"
+        data-testid="search-input"
+        placeholder="Buscar"
+        onChange={ ({ target: { value } }) => setType(value) }
+      />
+      <label htmlFor="ingredient">
         <input
-          className="search-input"
-          type="text"
-          value={ inputSearch }
-          data-testid="search-input"
-          placeholder="Digite sua busca"
-          onChange={ (event) => handleInputSearch(event) }
-        />
-      </label>
-
-      <label htmlFor="ingredient-search-radio">
-        Ingredient
-        <input
-          className="ingredient-search-radio"
+          type="radio"
+          name="filter"
+          id="ingredient"
+          value="ingredient"
           data-testid="ingredient-search-radio"
-          type="radio"
-          name="search-input"
-          value="ingredient "
-          onChange={ handleChangeIngredient }
+          onClick={ ({ target: { value } }) => setFilter(value) }
         />
+        Ingrediente
       </label>
-
-      <label htmlFor="name-search-radio">
-        Name
+      <label htmlFor="name">
         <input
-          className="name-search-radio"
+          type="radio"
+          name="filter"
+          value="name"
+          id="name"
           data-testid="name-search-radio"
-          type="radio"
-          name="search-input"
-          value={ name }
-          onChange={ handleChangeName }
+          onClick={ ({ target: { value } }) => setFilter(value) }
         />
+        Nome
       </label>
-
-      <label htmlFor="first-letter-search-radio">
-        First Letter
+      <label htmlFor="first">
         <input
-          className="first-letter-search-radio"
-          data-testid="first-letter-search-radio"
           type="radio"
-          name="search-input"
-          value={ firstLetter }
-          onChange={ handleChangeFirst }
+          name="filter"
+          id="first"
+          value="firstLetter"
+          data-testid="first-letter-search-radio"
+          onClick={ ({ target: { value } }) => setFilter(value) }
         />
+        Primeira Letra
       </label>
-
-      <button onClick={ handleSubmit } type="submit" data-testid="exec-search-btn">
-        Search
+      <button
+        type="button"
+        data-testid="exec-search-btn"
+        name={ nameBtn }
+        onClick={ ({ target: { name } }) => handleClick(name) }
+      >
+        Buscar
       </button>
-    </form>
+    </div>
   );
 }
 
 SearchBar.propTypes = {
-  history: PropTypes.shape({ location: shape({}) }).isRequired,
+  nameBtn: PropTypes.string.isRequired,
 };
 
 export default SearchBar;
