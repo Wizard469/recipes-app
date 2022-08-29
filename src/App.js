@@ -11,6 +11,10 @@ import Profile from './Pages/Profile';
 import DoneRecipes from './Pages/DoneRecipes';
 import FavoriteRecipes from './Pages/FavoriteRecipes';
 import CategoryProvider from './context/CategoryProvider';
+import RecipeDetails from './Pages/RecipeDetails';
+// import RecipeDetailsFood from './Pages/RecipeDetailsFood';
+
+// import FoodRecipesId from './Pages/FoodRecipesId';
 
 function App() {
   return (
@@ -21,11 +25,15 @@ function App() {
             <Route exact path="/" component={ Login } />
             <Route exact path="/foods" component={ Foods } />
             <Route exact path="/drinks" component={ Drinks } />
+            <Route exact path="/foods/:id" component={ RecipeDetails } />
+            <Route exact path="/drinks/:id" component={ RecipeDetails } />
             <Route path="/foods/:id/in-progress" component={ RecipeInProgress } />
             <Route path="/drinks/:id/in-progress" component={ RecipeInProgress } />
             <Route path="/profile" component={ Profile } />
             <Route path="/done-recipes" component={ DoneRecipes } />
             <Route path="/favorite-recipes" component={ FavoriteRecipes } />
+
+            {/* <Route exact path="/foods/:id" component={ RecipeDetails } /> */}
           </CategoryProvider>
         </Provider>
       </Switch>
