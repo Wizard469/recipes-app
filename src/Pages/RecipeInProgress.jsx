@@ -18,10 +18,10 @@ function RecipeInProgress() {
     favorite,
     ingredients,
     verifyChecks,
-    imgVerify,
-    imgCheck,
+    verifyImg,
+    checkImg,
     checksArray,
-    recipesFinish,
+    finishRecipes,
   } = useContext(context);
   const { id } = useParams();
   const [copied, setCopied] = useState(false);
@@ -92,9 +92,9 @@ function RecipeInProgress() {
   return (
     filterId.length && (
       <div>
-        {imgVerify(url)}
+        {verifyImg(url)}
         <img
-          src={ imgCheck }
+          src={ checkImg }
           alt="imagem da receita"
           data-testid="recipe-photo"
         />
@@ -153,7 +153,7 @@ function RecipeInProgress() {
             type="button"
             data-testid="finish-recipe-btn"
             disabled={ !checksArray }
-            onClick={ () => recipesFinish(current) }
+            onClick={ () => finishRecipes(current) }
           >
             Finish
           </button>

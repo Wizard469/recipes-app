@@ -1,13 +1,13 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import context from '../context/Context';
-import shareIcon from '../images/searchIcon.svg';
+import searcheIcon from '../images/searchIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 const copy = require('clipboard-copy');
 
-function FoodRecipesId() {
+function RecipeDetailsFood() {
   const { setFilterId, filterId, setRecomendations,
     recomendations, setFavorited, saveRecipesInProgress,
     foods, favoriteRecipe, setApp, ingredients } = useContext(context);
@@ -17,24 +17,25 @@ function FoodRecipesId() {
   const [copying, setCopying] = useState(false);
 
   useEffect(() => {
-    const fetchId = async () => {
+    const fetchIdFood = async () => {
       const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
       const data = await response.json();
       setFilterId(data.meals);
     };
-    fetchId();
+    fetchIdFood();
     setApp(id);
   }, []);
 
   useEffect(() => {
-    const IdFetch = async () => {
+    const IdFetchFood = async () => {
       const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
       const data = await response.json();
       setRecomendations(data.drinks);
     };
-    IdFetch();
+    IdFetchFood();
   }, []);
 
+  
   const urlCopy = () => {
     copy(hrefUrl);
     setCopying(!copying);
@@ -42,7 +43,7 @@ function FoodRecipesId() {
 
   const recomendationsFilter = recomendations.filter((_e, index) => index <= +'5');
   useEffect(() => {
-    if (filterId.lenght) {
+    if (filterId.length) {
       setFavorited({
         id: filterId[0].idMeal,
         type: 'food',
@@ -55,7 +56,7 @@ function FoodRecipesId() {
     }
   }, [filterId, setFavorited]);
 
-  const measuresObject = filterId.lenght && Object.entries(filterId[0])
+  const measuresObject = filterId.length && Object.entries(filterId[0])
     .reduce((acc, el) => {
       if (el[0].includes('strMeasure')) {
         acc.push(el[1]);
@@ -90,7 +91,7 @@ function FoodRecipesId() {
             onClick={ () => urlCopy() }
           >
             <img
-              src={ shareIcon }
+              src={ searcheIcon }
               alt="icone perfil"
             />
           </button>
@@ -140,4 +141,4 @@ function FoodRecipesId() {
   );
 }
 
-export default FoodRecipesId;
+export default RecipeDetailsFood;
