@@ -103,7 +103,7 @@ function Provider({ children }) {
       setFavorited({
         id: filterId[0].idDrink,
         type: 'drink',
-        category: filteredById[0].strCategory,
+        category: filterId[0].strCategory,
         alcoholicOrNot: filterId[0].strAlcoholic,
         name: filterId[0].strDrink,
         image: filterId[0].strDrinkThumb,
@@ -112,7 +112,7 @@ function Provider({ children }) {
       setFavorited({
         id: filterId[0].idMeal,
         type: 'food',
-        category: filteredById[0].strCategory,
+        category: filterId[0].strCategory,
         alcoholicOrNot: '',
         name: filterId[0].strMeal,
         image: filterId[0].strMealThumb,
@@ -165,15 +165,16 @@ function Provider({ children }) {
     }
     return acc;
   }, []);
-  const [checkImg, setCheckImg] = useState('');
+  const [imgCheck, setImgCheck] = useState('');
   const verifyImg = (url) => {
     if (url === 'drinks') {
-      setCheckImg(filterId[0].strDrinkThumb);
-    } else { setCheckImg(filterId[0].strMealThumb); }
+      setImgCheck(filterId[0].strDrinkThumb);
+    } else { setImgCheck(filterId[0].strMealThumb); }
   };
-  const boxes = document.querySelectorAll('.teste');
-  const checksArray = boxes && [...boxes].every((e) => e.checked === true);
-  const finishRecipes = (param) => {
+  const documentQuery = document.querySelectorAll('.app-recipes');
+  const checksArray = documentQuery && [...documentQuery]
+    .every((e) => e.checked === true);
+  const recipesFinish = (param) => {
     const arrRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     if (arrRecipes) {
       localStorage.setItem('doneRecipes',
@@ -216,8 +217,9 @@ function Provider({ children }) {
     ingredients,
     verifyImg,
     checksArray,
-    finishRecipes,
-    checkImg };
+    recipesFinish,
+    imgCheck,
+    setImgCheck };
 
   return (
     <context.Provider value={ contextValue }>

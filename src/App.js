@@ -12,7 +12,8 @@ import DoneRecipes from './Pages/DoneRecipes';
 import FavoriteRecipes from './Pages/FavoriteRecipes';
 import CategoryProvider from './context/CategoryProvider';
 import RecipeDetails from './Pages/RecipeDetails';
-// import RecipeDetailsFood from './Pages/RecipeDetailsFood';
+import RecipeDetailsDrinks from './Pages/RecipeDetailsDrinks';
+
 
 // import FoodRecipesId from './Pages/FoodRecipesId';
 
@@ -26,7 +27,7 @@ function App() {
             <Route exact path="/foods" component={ Foods } />
             <Route exact path="/drinks" component={ Drinks } />
             <Route exact path="/foods/:id" component={ RecipeDetails } />
-            <Route exact path="/drinks/:id" component={ RecipeDetails } />
+            <Route exact path="/drinks/:id" component={ RecipeDetailsDrinks } />
             <Route path="/foods/:id/in-progress" component={ RecipeInProgress } />
             <Route path="/drinks/:id/in-progress" component={ RecipeInProgress } />
             <Route path="/profile" component={ Profile } />
