@@ -35,7 +35,6 @@ function RecipeDetailsFood() {
     IdFetchFood();
   }, []);
 
-  
   const urlCopy = () => {
     copy(hrefUrl);
     setCopying(!copying);
