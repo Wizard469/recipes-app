@@ -12,6 +12,8 @@ import DoneRecipes from './Pages/DoneRecipes';
 import FavoriteRecipes from './Pages/FavoriteRecipes';
 import CategoryProvider from './context/CategoryProvider';
 
+import RecipeDetails from './Pages/RecipeDetails';
+
 function App() {
   return (
     <div className="meals">
@@ -26,6 +28,9 @@ function App() {
             <Route path="/profile" component={ Profile } />
             <Route path="/done-recipes" component={ DoneRecipes } />
             <Route path="/favorite-recipes" component={ FavoriteRecipes } />
+
+            <Route exact path="/foods/:id" component={ RecipeDetails } />
+            <Route exact path="/drinks/:id" component={ RecipeDetails } />
           </CategoryProvider>
         </Provider>
       </Switch>
