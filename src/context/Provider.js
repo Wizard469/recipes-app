@@ -166,7 +166,7 @@ function Provider({ children }) {
     return acc;
   }, []);
   const [imgCheck, setImgCheck] = useState('');
-  const imgVerify = (url) => {
+  const verifyImg = (url) => {
     if (url === 'drinks') {
       setImgCheck(filterId[0].strDrinkThumb);
     } else { setImgCheck(filterId[0].strMealThumb); }
@@ -215,7 +215,7 @@ function Provider({ children }) {
     verifyChecks,
     checks,
     ingredients,
-    imgVerify,
+    verifyImg,
     checksArray,
     recipesFinish,
     imgCheck,
