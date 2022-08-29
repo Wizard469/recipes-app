@@ -7,6 +7,7 @@ function CategoryProvider({ children }) {
   const endpointDrinks = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
   const [categoryMeals, setCategoryMeals] = useState([]);
   const [categoryDrinks, setCategoryDrinks] = useState([]);
+  const [filteredByCategory, setFilteredByCategory] = useState([]);
 
   useEffect(() => {
     const getCategoryMeals = async () => {
@@ -28,6 +29,8 @@ function CategoryProvider({ children }) {
   const contextValue = {
     categoryMeals,
     categoryDrinks,
+    filteredByCategory,
+    setFilteredByCategory,
   };
   return (
     <categoryContext.Provider value={ contextValue }>

@@ -11,8 +11,9 @@ import Profile from './Pages/Profile';
 import DoneRecipes from './Pages/DoneRecipes';
 import FavoriteRecipes from './Pages/FavoriteRecipes';
 import CategoryProvider from './context/CategoryProvider';
-import RecipeDetailsDrinks from './Pages/RecipeDetailsDrinks';
 import RecipeDetails from './Pages/RecipeDetails';
+import RecipeDetailsDrinks from './Pages/RecipeDetailsDrinks';
+
 
 // import FoodRecipesId from './Pages/FoodRecipesId';
 
