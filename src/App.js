@@ -11,6 +11,7 @@ import Profile from './Pages/Profile';
 import DoneRecipes from './Pages/DoneRecipes';
 import FavoriteRecipes from './Pages/FavoriteRecipes';
 import CategoryProvider from './context/CategoryProvider';
+import FoodRecipesId from './Pages/FoodRecipesId';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route exact path="/" component={ Login } />
             <Route exact path="/foods" component={ Foods } />
             <Route exact path="/drinks" component={ Drinks } />
+            <Route exact path="/foods/:id" component={ FoodRecipesId } />
             <Route path="/foods/:id/in-progress" component={ RecipeInProgress } />
             <Route path="/drinks/:id/in-progress" component={ RecipeInProgress } />
             <Route path="/profile" component={ Profile } />
