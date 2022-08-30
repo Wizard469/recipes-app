@@ -45,6 +45,14 @@ export default function FoodCategories() {
   };
   return (
     <div className="filter-container">
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        value="teste"
+        onClick={ AllCategories }
+      >
+        All
+      </button>
       {categoryName && categoryName.map((category, index) => (
         <button
           type="button"
@@ -56,14 +64,6 @@ export default function FoodCategories() {
           {category.strCategory}
         </button>
       ))}
-      <button
-        type="button"
-        data-testid="All-category-filter"
-        value="teste"
-        onClick={ AllCategories }
-      >
-        All
-      </button>
     </div>
   );
 }

@@ -4,35 +4,36 @@ import context from '../context/Context';
 import searcheIcon from '../images/searchIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import '../styles/Details.css';
 
 const copy = require('clipboard-copy');
 
 function RecipeDetailsFood() {
   const { setFilterId, filterId, setRecomendations,
     recomendations, setFavorited, saveRecipesInProgress,
-    foods, favoriteRecipe, setApp, ingredients } = useContext(context);
+    foods, favoriteRecipe, setApp } = useContext(context);
 
   const { id } = useParams();
   const hrefUrl = window.location.href;
   const [copying, setCopying] = useState(false);
 
   useEffect(() => {
-    const fetchIdFood = async () => {
+    const fetchId = async () => {
       const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
       const data = await response.json();
       setFilterId(data.meals);
     };
-    fetchIdFood();
+    fetchId();
     setApp(id);
   }, []);
 
   useEffect(() => {
-    const IdFetchFood = async () => {
+    const IdFetch = async () => {
       const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
       const data = await response.json();
       setRecomendations(data.drinks);
     };
-    IdFetchFood();
+    IdFetch();
   }, []);
 
   const urlCopy = () => {
@@ -55,6 +56,14 @@ function RecipeDetailsFood() {
     }
   }, [filterId, setFavorited]);
 
+  const ingredients = filterId.length
+  && Object.entries(filterId[0]).reduce((acc, e) => {
+    if (e[0].includes('strIngredient')) {
+      acc.push(e[1]);
+    }
+    return acc;
+  }, []);
+
   const measuresObject = filterId.length && Object.entries(filterId[0])
     .reduce((acc, el) => {
       if (el[0].includes('strMeasure')) {
@@ -65,11 +74,12 @@ function RecipeDetailsFood() {
 
   return (
     filterId.length && (
-      <div>
+      <div className="recipe-details-container">
         <img
           src={ filterId[0].strMealThumb }
           alt="imagem da receita"
           data-testid="recipe-photo"
+          width="250rem"
         />
         <h1 data-testid="recipe-title">{filterId[0].strMeal}</h1>
         <h2 data-testid="recipe-category">{filterId[0].strCategory}</h2>
@@ -83,7 +93,7 @@ function RecipeDetailsFood() {
             </li>
           ))}
         </ul>
-        <div>
+        <div className="button-container">
           <button
             type="button"
             data-testid="share-btn"
@@ -104,7 +114,7 @@ function RecipeDetailsFood() {
             <img src={ foods ? blackHeartIcon : whiteHeartIcon } alt="icone perfil" />
           </button>
         </div>
-        <div>
+        <div className="instructions-container">
           <h3 data-testid="instructions">{filterId[0].strInstructions}</h3>
         </div>
         <iframe
@@ -113,28 +123,34 @@ function RecipeDetailsFood() {
           frameBorder="0"
           title="Embedded youtube"
         />
-        <div>
+        <div className="recomendation-container">
           {recomendationsFilter.length
             && recomendationsFilter.map((e, i) => (
               <div
                 key={ e.strDrink }
                 data-testid={ `${i}-recomendation-card` }
               >
-                <img src={ e.strDrinkThumb } alt="img da receita" />
+                <img
+                  src={ e.strDrinkThumb }
+                  alt="img da receita"
+                  width="250rem"
+                />
                 <h3 data-testid={ `${i}-recomendation-title` }>{e.strDrink}</h3>
               </div>
             ))}
         </div>
-        <Link to={ `/foods/${id}/in-progress` }>
-          <button
-            type="button"
-            data-testid="start-recipe-btn"
-            onClick={ () => ingredients && saveRecipesInProgress('',
-              ingredients.filter((item) => item !== null)) }
-          >
-            Continue Recipe
-          </button>
-        </Link>
+        <div className="link-container">
+          <Link to={ `/foods/${id}/in-progress` }>
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              onClick={ () => ingredients && saveRecipesInProgress('',
+                ingredients.filter((item) => item !== null)) }
+            >
+              Continue Recipe
+            </button>
+          </Link>
+        </div>
       </div>
     )
   );

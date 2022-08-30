@@ -6,7 +6,7 @@ import Recipes from '../components/Recipes';
 
 function Foods() {
   return (
-    <div>
+    <div className="foods-container">
       <Header title="Foods" bool nameBtn="food" />
       <FoodCategories />
       <Recipes food />
