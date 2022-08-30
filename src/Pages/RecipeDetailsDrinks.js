@@ -10,7 +10,7 @@ const copy = require('clipboard-copy');
 function RecipeDetailsDrinks() {
   const { setFilterId, filterId, setRecomendations,
     recomendations, setFavorited, saveRecipesInProgress,
-    foods, favoriteRecipe, setApp } = useContext(context);
+    foods, favoriteRecipe, setApp, ingredients } = useContext(context);
 
   const { id } = useParams();
   const hrefUrl = window.location.href;
@@ -18,7 +18,7 @@ function RecipeDetailsDrinks() {
 
   useEffect(() => {
     const fetchId = async () => {
-      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+      const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
       const data = await response.json();
       setFilterId(data.drinks);
     };
@@ -28,7 +28,7 @@ function RecipeDetailsDrinks() {
 
   useEffect(() => {
     const IdFetch = async () => {
-      const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+      const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
       const data = await response.json();
       setRecomendations(data.meals);
     };
@@ -55,14 +55,6 @@ function RecipeDetailsDrinks() {
     }
   }, [filterId, setFavorited]);
 
-  const ingredientsDrinks = filterId.length
-  && Object.entries(filterId[0]).reduce((acc, e) => {
-    if (e[0].includes('strIngredient')) {
-      acc.push(e[1]);
-    }
-    return acc;
-  }, []);
-
   const measuresObject = filterId.length && Object.entries(filterId[0])
     .reduce((acc, el) => {
       if (el[0].includes('strMeasure')) {
@@ -83,7 +75,7 @@ function RecipeDetailsDrinks() {
         <h2 data-testid="recipe-category">{filterId[0].strCategory}</h2>
         <h3 data-testid="recipe-category">{filterId[0].strAlcoholic}</h3>
         <ul>
-          {ingredientsDrinks.filter((el) => el !== '' && el !== null)
+          {ingredients.filter((el) => el !== '' && el !== null)
             .map((e, i) => (
               <li
                 key={ i }
@@ -134,7 +126,7 @@ function RecipeDetailsDrinks() {
             type="button"
             data-testid="start-recipe-btn"
             onClick={ () => saveRecipesInProgress('',
-              ingredientsDrinks.filter((item) => item !== null)) }
+              ingredients.filter((item) => item !== null)) }
           >
             Continue Recipe
           </button>
