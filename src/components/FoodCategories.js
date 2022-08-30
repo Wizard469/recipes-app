@@ -1,7 +1,7 @@
-import PropTypes, { shape } from 'prop-types';
+import { shape, string } from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import categoryContext from '../context/CategoriesContex';
+import categoryContext from '../context/CategoriesContext';
 import context from '../context/Context';
 import { foodByCategory } from '../services/api';
 
@@ -69,5 +69,9 @@ export default function FoodCategories() {
 }
 
 FoodCategories.propTypes = {
-  history: PropTypes.shape({ location: shape({}) }).isRequired,
-};
+  history: shape({
+    location: shape({
+      pathname: string,
+    }),
+  }),
+}.isRequired;

@@ -70,6 +70,7 @@ function FavoriteRecipes() {
                   data-testid={ `${i}-horizontal-image` }
                   src={ e.image }
                   alt=""
+                  width="250rem"
                 />
                 <h3 data-testid={ `${i}-horizontal-top-text` }>
                   {e.type === 'food'

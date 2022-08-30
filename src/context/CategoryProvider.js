@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types';
+import { node } from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import categoryContext from './CategoriesContex';
+import categoryContext from './CategoriesContext';
 
 function CategoryProvider({ children }) {
   const endpointMeals = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
@@ -40,7 +40,7 @@ function CategoryProvider({ children }) {
 }
 
 CategoryProvider.propTypes = {
-  children: PropTypes.node.isRequired,
-};
+  children: node,
+}.isRequired;
 
 export default CategoryProvider;

@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { bool } from 'prop-types';
 import React, { useContext, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import context from '../context/Context';
@@ -70,7 +70,7 @@ function Recipes({ food }) {
 }
 
 Recipes.propTypes = {
-  food: PropTypes.bool,
+  food: bool,
 };
 
 Recipes.defaultProps = {

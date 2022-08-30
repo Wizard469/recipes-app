@@ -1,15 +1,15 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import context from '../context/Context';
-import searcheIcon from '../images/searchIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 const copy = require('clipboard-copy');
 
 function RecipeDetailsFood() {
-  const { setFilterId, filterId, setRecomendations,
-    recomendations, setFavorited, saveRecipesInProgress,
+  const { setFilterId, filterId, setRecommendations,
+    recommendations, setFavorite, saveRecipesInProgress,
     foods, favoriteRecipe, setApp, ingredients } = useContext(context);
 
   const { id } = useParams();
@@ -30,7 +30,7 @@ function RecipeDetailsFood() {
     const IdFetchFood = async () => {
       const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
       const data = await response.json();
-      setRecomendations(data.drinks);
+      setRecommendations(data.drinks);
     };
     IdFetchFood();
   }, []);
@@ -40,10 +40,10 @@ function RecipeDetailsFood() {
     setCopying(!copying);
   };
 
-  const recomendationsFilter = recomendations.filter((_e, index) => index <= +'5');
+  const recommendationsFilter = recommendations.filter((_e, index) => index <= +'5');
   useEffect(() => {
     if (filterId.length) {
-      setFavorited({
+      setFavorite({
         id: filterId[0].idMeal,
         type: 'food',
         nationality: filterId[0].strArea,
@@ -53,7 +53,7 @@ function RecipeDetailsFood() {
         image: filterId[0].strMealThumb,
       });
     }
-  }, [filterId, setFavorited]);
+  }, [filterId, setFavorite]);
 
   const measuresObject = filterId.length && Object.entries(filterId[0])
     .reduce((acc, el) => {
@@ -70,6 +70,7 @@ function RecipeDetailsFood() {
           src={ filterId[0].strMealThumb }
           alt="imagem da receita"
           data-testid="recipe-photo"
+          width="250rem"
         />
         <h1 data-testid="recipe-title">{filterId[0].strMeal}</h1>
         <h2 data-testid="recipe-category">{filterId[0].strCategory}</h2>
@@ -90,7 +91,7 @@ function RecipeDetailsFood() {
             onClick={ () => urlCopy() }
           >
             <img
-              src={ searcheIcon }
+              src={ shareIcon }
               alt="icone perfil"
             />
           </button>
@@ -114,13 +115,13 @@ function RecipeDetailsFood() {
           title="Embedded youtube"
         />
         <div>
-          {recomendationsFilter.length
-            && recomendationsFilter.map((e, i) => (
+          {recommendationsFilter.length
+            && recommendationsFilter.map((e, i) => (
               <div
                 key={ e.strDrink }
                 data-testid={ `${i}-recomendation-card` }
               >
-                <img src={ e.strDrinkThumb } alt="img da receita" />
+                <img src={ e.strDrinkThumb } alt="img da receita" width="250rem" />
                 <h3 data-testid={ `${i}-recomendation-title` }>{e.strDrink}</h3>
               </div>
             ))}

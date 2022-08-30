@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { shape, func } from 'prop-types';
 
 function Login({ history }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [disabled, setDisabled] = useState(true);
 
   const handleChangeEmail = ({ target }) => {
     setEmail(target.value);
@@ -15,18 +14,10 @@ function Login({ history }) {
   };
 
   const loginValidate = () => {
-    const regexEmail = /\S+@\S+\.\S+/;
-    const MIN_PASSWORD = 6;
-
-    if (email.match(regexEmail) && password.length > MIN_PASSWORD) {
-      return setDisabled(false);
-    }
-    return setDisabled(true);
+    const filter = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    const minCharacters = 6;
+    return !(filter.test(email) && password.length > minCharacters);
   };
-
-  useEffect(() => {
-    loginValidate();
-  });
 
   function submitLogin(event) {
     event.preventDefault();
@@ -61,7 +52,7 @@ function Login({ history }) {
           />
         </label>
 
-        <button disabled={ disabled } type="submit" data-testid="login-submit-btn">
+        <button disabled={ loginValidate() } type="submit" data-testid="login-submit-btn">
           Enter
         </button>
       </form>
@@ -70,7 +61,9 @@ function Login({ history }) {
 }
 
 Login.propTypes = {
-  history: PropTypes.shape({}),
+  history: shape({
+    push: func,
+  }),
 }.isRequired;
 
 export default Login;
