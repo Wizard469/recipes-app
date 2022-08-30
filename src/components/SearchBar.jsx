@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { string } from 'prop-types';
 import React, { useContext, useState } from 'react';
 import context from '../context/Context';
 
@@ -67,7 +67,7 @@ function SearchBar({ nameBtn }) {
 }
 
 SearchBar.propTypes = {
-  nameBtn: PropTypes.string.isRequired,
-};
+  nameBtn: string,
+}.isRequired;
 
 export default SearchBar;
