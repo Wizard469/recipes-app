@@ -158,13 +158,13 @@ function Provider({ children }) {
       setChecks(!checks.length ? [nome] : [...checks, nome]);
     }
   };
-  const ingredients = filterId.length
-  && Object.entries(filterId[0]).reduce((acc, e) => {
-    if (e[0].includes('strIngredient')) {
-      acc.push(e[1]);
-    }
-    return acc;
-  }, []);
+  const ingredients = filterId.length && Object.entries(filterId[0])
+    .reduce((acc, e) => {
+      if (e[0].includes('strIngredient')) {
+        acc.push(e[1]);
+      }
+      return acc;
+    }, []);
   const [imgCheck, setImgCheck] = useState('');
   const verifyImg = (url) => {
     if (url === 'drinks') {
