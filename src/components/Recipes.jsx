@@ -11,9 +11,9 @@ function Recipes({ food }) {
   const recipe = Object.values(recipes);
   useEffect(() => {
     if (recipe[0] && recipe[0].length === 1 && recipe[0][0].idMeal !== '52968') {
-      if (food && !turnedTrue) {
+      if (food) {
         history.push(`/foods/${recipe[0][0].idMeal}`);
-      } else if (!food && !turnedTrue) {
+      } else if (!food) {
         history.push(`/drinks/${recipe[0][0].idDrink}`);
       }
     } else if (recipes.meals === null || recipes.drinks === null) {

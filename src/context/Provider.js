@@ -4,7 +4,6 @@ import context from './Context';
 
 function Provider({ children }) {
   const [allButton, setAllButton] = useState([]);
-  const [turnedTrue, setTurnedTrue] = useState(false);
   const [resetFilter, setResetFilter] = useState(false);
   const [filterId, setFilterId] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
@@ -194,8 +193,6 @@ function Provider({ children }) {
     recipesChange,
     allButton,
     setAllButton,
-    turnedTrue,
-    setTurnedTrue,
     resetFilter,
     setResetFilter,
     filterId,
