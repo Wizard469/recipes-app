@@ -10,7 +10,7 @@ const copy = require('clipboard-copy');
 
 function RecipeDetailsFood() {
   const { setFilterId, filterId, setRecomendations,
-    recomendations, setFavorited, saveRecipesInProgress,
+    recomendations, setFavorite, saveRecipesInProgress,
     foods, favoriteRecipe, setApp } = useContext(context);
 
   const { id } = useParams();
@@ -31,7 +31,7 @@ function RecipeDetailsFood() {
     const IdFetch = async () => {
       const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
       const data = await response.json();
-      setRecommendations(data.drinks);
+      setRecomendations(data.drinks);
     };
     IdFetch();
   }, []);
@@ -41,7 +41,7 @@ function RecipeDetailsFood() {
     setCopying(!copying);
   };
 
-  const recommendationsFilter = recommendations.filter((_e, index) => index <= +'5');
+  const recomendationsFilter = recomendations.filter((_e, index) => index <= +'5');
   useEffect(() => {
     if (filterId.length) {
       setFavorite({

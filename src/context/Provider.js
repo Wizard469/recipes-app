@@ -7,7 +7,7 @@ function Provider({ children }) {
   const [turnedTrue, setTurnedTrue] = useState(false);
   const [resetFilter, setResetFilter] = useState(false);
   const [filterId, setFilterId] = useState([]);
-  const [recommendations, setRecommendations] = useState([]);
+  const [recomendations, setRecomendations] = useState([]);
   const [searched, setSearched] = useState('');
   const changeSearch = (param) => {
     setSearched(param);
@@ -200,8 +200,8 @@ function Provider({ children }) {
     setResetFilter,
     filterId,
     setFilterId,
-    recommendations,
-    setRecommendations,
+    recomendations,
+    setRecomendations,
     setStorage,
     storage,
     setApp,
