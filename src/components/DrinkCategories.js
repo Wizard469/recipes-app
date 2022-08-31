@@ -44,6 +44,14 @@ export default function DrinksCategories() {
 
   return (
     <div className="filter-container">
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        value="teste"
+        onClick={ AllCategories }
+      >
+        All
+      </button>
       {categoryName.length > 0 && categoryName.map((category, index) => (
         <button
           type="button"
@@ -55,14 +63,6 @@ export default function DrinksCategories() {
           {category.strCategory}
         </button>
       ))}
-      <button
-        type="button"
-        data-testid="All-category-filter"
-        value="teste"
-        onClick={ AllCategories }
-      >
-        All
-      </button>
     </div>
   );
 }

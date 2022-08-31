@@ -1,4 +1,39 @@
 .footer {
   bottom: 0;
+  margin-left: 30%;
+  margin-right: auto;
   position: fixed;
 }
+
+.footer button {
+  border-color: #f79f94;
+  border-radius: 6px;
+  margin-left: 8px;
+  margin-right: 8px;
+  padding: 3px 6px;
+}
+
+/* * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+
+.footer {
+  background-color: #fa9d64;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0;
+  padding-bottom: 8px;
+  padding-top: 8px;
+}
+
+.footer button {
+  border-color: #f79f94;
+  border-radius: 6px;
+  margin-left: 8px;
+  margin-right: 8px;
+  padding: 3px 6px;
+}
+ */

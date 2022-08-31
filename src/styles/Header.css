@@ -1,0 +1,22 @@
+@media only screen and ( min-width : 360px ) and ( max-width : 640px ) {
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+  }
+
+  .header-container {
+    background-color: #fa9d64;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 4px;
+  }
+
+  .icon-profile, .icon-search {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}

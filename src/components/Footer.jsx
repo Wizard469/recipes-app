@@ -19,7 +19,6 @@ function Footer() {
       <button onClick={ drinksButton } type="button">
         <img data-testid="drinks-bottom-btn" src={ drinkIcon } alt="drinks" />
       </button>
-
       <button onClick={ foodsButton } type="button">
         <img data-testid="food-bottom-btn" src={ mealIcon } alt="foods" />
       </button>

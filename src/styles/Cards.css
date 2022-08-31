@@ -1,25 +1,46 @@
-/* .cards {
+.foods-container {
+  background-color: #ffd0b3;
   padding-bottom: 30px;
-} */
-
-.card-container {
-
-  /* align-items: center; */
-  display: flex;
-  flex-wrap: nowrap;
-
-  /* gap: 4px; */
-
-  /* justify-content: center; */
-
-  /* margin: 0 auto; */
-
-  /* margin-bottom: 20px; */
-
-  /* text-align: center; */
 }
 
-/* .card-img {
-  border-radius: 15px;
-  width: 10%;
-} */
+.drinks-container {
+  background-color: #ffd0b3;
+  padding-bottom: 30px;
+}
+
+.card-container {
+  align-items: center;
+  display: grid;
+  font-family: 'Baloo Paaji 2' , cursive;
+  grid-gap: 20px;
+  grid-template-columns: 100px 100px 100px;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 8px;
+  padding: 2px;
+  width: min-content;
+}
+
+.filter-container {
+  display: grid;
+  grid-gap: 4px;
+  grid-template-columns: 100px 100px 100px;
+  justify-content: space-around;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.filter-container button {
+  border-color: #f79f94;
+  border-radius: 6px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100px;
+}
+
+.card-container h3 {
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+}

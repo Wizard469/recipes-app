@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { shape, func } from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import '../styles/Login.css';
 
 function Login({ history }) {
   const [email, setEmail] = useState('');
@@ -28,11 +29,12 @@ function Login({ history }) {
   }
 
   return (
-    <div>
+    <div className="login-container">
+      <h1>Receitas da Vovó Moderna</h1>
       <form onSubmit={ (event) => submitLogin(event) }>
         <label htmlFor="email-input">
           <input
-            id="email-input"
+            className="email-input"
             type="text"
             data-testid="email-input"
             onChange={ handleChangeEmail }
@@ -43,7 +45,7 @@ function Login({ history }) {
 
         <label htmlFor="password-input">
           <input
-            id="password-input"
+            className="password-input"
             type="password"
             data-testid="password-input"
             onChange={ handleChangePassword }
@@ -51,10 +53,11 @@ function Login({ history }) {
             value={ password.password }
           />
         </label>
-
-        <button disabled={ loginValidate() } type="submit" data-testid="login-submit-btn">
-          Enter
-        </button>
+        <div className="login-button">
+          <button disabled={ disabled } type="submit" data-testid="login-submit-btn">
+            Enter
+          </button>
+        </div>
       </form>
     </div>
   );
