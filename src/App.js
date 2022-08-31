@@ -13,7 +13,6 @@ import FavoriteRecipes from './Pages/FavoriteRecipes';
 import CategoryProvider from './context/CategoryProvider';
 import RecipeDetails from './Pages/RecipeDetails';
 import RecipeDetailsDrinks from './Pages/RecipeDetailsDrinks';
-
 // import FoodRecipesId from './Pages/FoodRecipesId';
 
 function App() {
@@ -31,7 +30,6 @@ function App() {
           <Route path="/profile" component={ Profile } />
           <Route path="/done-recipes" component={ DoneRecipes } />
           <Route path="/favorite-recipes" component={ FavoriteRecipes } />
-
           {/* <Route exact path="/foods/:id" component={ RecipeDetails } /> */}
         </CategoryProvider>
       </Provider>

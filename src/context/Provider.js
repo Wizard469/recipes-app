@@ -1,13 +1,13 @@
-import PropTypes from 'prop-types';
+import { node } from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import context from './Context';
 
 function Provider({ children }) {
   const [allButton, setAllButton] = useState([]);
-  const [turnedtrue, setTurnedTrue] = useState(false);
+  const [turnedTrue, setTurnedTrue] = useState(false);
   const [resetFilter, setResetFilter] = useState(false);
   const [filterId, setFilterId] = useState([]);
-  const [recomendations, setRecomendations] = useState([]);
+  const [recommendations, setRecommendations] = useState([]);
   const [searched, setSearched] = useState('');
   const changeSearch = (param) => {
     setSearched(param);
@@ -81,7 +81,7 @@ function Provider({ children }) {
       setFoods(true);
     }
   }, [app, storage]);
-  const [favorite, setFavorited] = useState({});
+  const [favorite, setFavorite] = useState({});
   const favoriteRecipe = () => {
     const verify = storage && storage.some((e) => e.id === app);
     if (storage === null && !verify) {
@@ -100,7 +100,7 @@ function Provider({ children }) {
   const [drinkOrFood, setDrinkOrFood] = useState('');
   useEffect(() => {
     if (filterId.length && drinkOrFood === 'drinks') {
-      setFavorited({
+      setFavorite({
         id: filterId[0].idDrink,
         type: 'drink',
         category: filterId[0].strCategory,
@@ -109,7 +109,7 @@ function Provider({ children }) {
         image: filterId[0].strDrinkThumb,
         nationality: '' });
     } else if (filterId.length && drinkOrFood === 'foods/') {
-      setFavorited({
+      setFavorite({
         id: filterId[0].idMeal,
         type: 'food',
         category: filterId[0].strCategory,
@@ -158,13 +158,13 @@ function Provider({ children }) {
       setChecks(!checks.length ? [nome] : [...checks, nome]);
     }
   };
-  const ingredients = filterId.length
-  && Object.entries(filterId[0]).reduce((acc, e) => {
-    if (e[0].includes('strIngredient')) {
-      acc.push(e[1]);
-    }
-    return acc;
-  }, []);
+  const ingredients = filterId.length && Object.entries(filterId[0])
+    .reduce((acc, e) => {
+      if (e[0].includes('strIngredient')) {
+        acc.push(e[1]);
+      }
+      return acc;
+    }, []);
   const [imgCheck, setImgCheck] = useState('');
   const verifyImg = (url) => {
     if (url === 'drinks') {
@@ -194,21 +194,21 @@ function Provider({ children }) {
     recipesChange,
     allButton,
     setAllButton,
-    turnedtrue,
+    turnedTrue,
     setTurnedTrue,
     resetFilter,
     setResetFilter,
     filterId,
     setFilterId,
-    recomendations,
-    setRecomendations,
+    recommendations,
+    setRecommendations,
     setStorage,
     storage,
     setApp,
     foods,
     setFoods,
     favoriteRecipe,
-    setFavorited,
+    setFavorite,
     favorite,
     setDrinkOrFood,
     saveRecipesInProgress,
@@ -227,6 +227,6 @@ function Provider({ children }) {
     </context.Provider>
   );
 }
-Provider.propTypes = { children: PropTypes.node.isRequired };
+Provider.propTypes = { children: node }.isRequired;
 
 export default Provider;

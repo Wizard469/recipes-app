@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import context from '../context/Context';
-import searcheIcon from '../images/searchIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import '../styles/Details.css';
@@ -31,7 +31,7 @@ function RecipeDetailsFood() {
     const IdFetch = async () => {
       const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
       const data = await response.json();
-      setRecomendations(data.drinks);
+      setRecommendations(data.drinks);
     };
     IdFetch();
   }, []);
@@ -41,10 +41,10 @@ function RecipeDetailsFood() {
     setCopying(!copying);
   };
 
-  const recomendationsFilter = recomendations.filter((_e, index) => index <= +'5');
+  const recommendationsFilter = recommendations.filter((_e, index) => index <= +'5');
   useEffect(() => {
     if (filterId.length) {
-      setFavorited({
+      setFavorite({
         id: filterId[0].idMeal,
         type: 'food',
         nationality: filterId[0].strArea,
@@ -54,7 +54,7 @@ function RecipeDetailsFood() {
         image: filterId[0].strMealThumb,
       });
     }
-  }, [filterId, setFavorited]);
+  }, [filterId, setFavorite]);
 
   const ingredients = filterId.length
   && Object.entries(filterId[0]).reduce((acc, e) => {
@@ -100,7 +100,7 @@ function RecipeDetailsFood() {
             onClick={ () => urlCopy() }
           >
             <img
-              src={ searcheIcon }
+              src={ shareIcon }
               alt="icone perfil"
             />
           </button>

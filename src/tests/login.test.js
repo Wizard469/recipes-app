@@ -27,7 +27,7 @@ describe('Teste da página Login.js', () => {
     expect(buttonEnter).toBeInTheDocument();
     expect(buttonEnter).toBeDisabled();
   });
-  it('quando o email e a senha forem válidos, o botão habilita', () => {
+  it('testa se quando o email e a senha forem válidos, o botão habilita', () => {
     renderWithRouter(<App />);
     const inputEmail = screen.getByPlaceholderText(/Digite seu email/i);
     userEvent.type(inputEmail, EMAIL_TEST);
