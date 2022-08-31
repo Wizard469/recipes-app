@@ -47,19 +47,18 @@ function Recipes({ food }) {
                   to={ food ? `/foods/${e.idMeal}` : `/drinks/${e.idDrink}` }
                 >
                   <div className="cards">
-                    <button type="button">
-                      <img
-                        className="card-img"
-                        data-testid={ `${index}-card-img` }
-                        src={ food ? e.strMealThumb : e.strDrinkThumb }
-                        alt="img da receita"
-                      />
-                      <h3
-                        data-testid={ `${index}-card-name` }
-                      >
-                        {food ? e.strMeal : e.strDrink}
-                      </h3>
-                    </button>
+                    <input
+                      type="image"
+                      className="card-img"
+                      data-testid={ `${index}-card-img` }
+                      src={ food ? e.strMealThumb : e.strDrinkThumb }
+                      alt="img da receita"
+                    />
+                    <h4
+                      data-testid={ `${index}-card-name` }
+                    >
+                      {food ? e.strMeal : e.strDrink}
+                    </h4>
                   </div>
                 </Link>
               </div>

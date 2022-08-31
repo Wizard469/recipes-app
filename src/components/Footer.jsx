@@ -16,12 +16,20 @@ function Footer() {
 
   return (
     <div data-testid="footer" className="footer">
-      <button onClick={ drinksButton } type="button">
-        <img data-testid="drinks-bottom-btn" src={ drinkIcon } alt="drinks" />
-      </button>
-      <button onClick={ foodsButton } type="button">
-        <img data-testid="food-bottom-btn" src={ mealIcon } alt="foods" />
-      </button>
+      <input
+        type="image"
+        data-testid="drinks-bottom-btn"
+        src={ drinkIcon }
+        alt="drinks"
+        onClick={ drinksButton }
+      />
+      <input
+        type="image"
+        data-testid="food-bottom-btn"
+        src={ mealIcon }
+        alt="foods"
+        onClick={ foodsButton }
+      />
     </div>
   );
 }
