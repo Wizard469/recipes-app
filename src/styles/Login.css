@@ -9,8 +9,7 @@
 
   .login-container {
     align-self: center;
-    background-image: url('../images/Captura\ de\ tela\ de\ 2022-08-30\ 16-31-41.png');
-    background-size: 360px 640px;
+    background-color: #69310e;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -31,7 +30,7 @@
 
   form {
     margin-bottom: 20vh;
-    margin-top: 20vh;
+    margin-top: 10vh;
   }
 
   .login-button button {
@@ -47,5 +46,9 @@
   .login-button button:hover {
     cursor: pointer;
     text-shadow: 1px  #2f6627;
+  }
+
+  .logo {
+    margin-top: 16px;
   }
 }
