@@ -91,4 +91,35 @@ describe('Testa a tela de Receitas', () => {
     userEvent.click(buttonShake);
 
   });
-});
+
+  test('Testing if have images cards and your length in food recipes page', async () => {
+    const { history } = renderWithRouter(<App />);
+    history.push('/foods')
+
+    const allImageCards = await screen.findAllByRole("img");
+
+    expect(allImageCards).toHaveLength(2);
+    expect(history.location.pathname).toBe('/foods');
+
+  })
+  test('testing if filters work correctly', async () => {
+    const { history } = renderWithRouter(<App />);
+    history.push('/foods')
+
+    const beefFilter = await screen.findByRole("button", { name: /beef/i });
+    userEvent.click(beefFilter);
+    // screen.logTestingPlaygroundURL();
+  })
+})
+
+  test('Testing if have images cards and your length in drink recipes page', async () => {
+    const { history } = renderWithRouter(<App />);
+    history.push('/drinks')
+
+    const allImageCards = await screen.findAllByRole("img");
+
+    expect(allImageCards).toHaveLength(2);
+    expect(history.location.pathname).toBe('/drinks');
+
+  })
+

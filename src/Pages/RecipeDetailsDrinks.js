@@ -4,6 +4,7 @@ import context from '../context/Context';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import '../styles/Details.css';
 
 const copy = require('clipboard-copy');
 
@@ -65,7 +66,7 @@ function RecipeDetailsDrinks() {
 
   return (
     filterId.length && (
-      <div>
+      <div className="recipe-details-container">
         <img
           src={ filterId[0].strDrinkThumb }
           alt="imagem da receita"
@@ -86,7 +87,7 @@ function RecipeDetailsDrinks() {
               </li>
             ))}
         </ul>
-        <div>
+        <div className="button-container">
           <button
             type="button"
             data-testid="share-btn"
@@ -107,10 +108,10 @@ function RecipeDetailsDrinks() {
             <img src={ foods ? blackHeartIcon : whiteHeartIcon } alt="icone perfil" />
           </button>
         </div>
-        <div>
+        <div className="instructions-container">
           <h3 data-testid="instructions">{filterId[0].strInstructions}</h3>
         </div>
-        <div>
+        <div className="recomendation-container">
           {recomendationsFilter.length
             && recomendationsFilter.map((e, i) => (
               <div
@@ -122,16 +123,18 @@ function RecipeDetailsDrinks() {
               </div>
             ))}
         </div>
-        <Link to={ `/drinks/${id}/in-progress` }>
-          <button
-            type="button"
-            data-testid="start-recipe-btn"
-            onClick={ () => saveRecipesInProgress('',
-              ingredients.filter((item) => item !== null)) }
-          >
-            Continue Recipe
-          </button>
-        </Link>
+        <div className="link-container">
+          <Link to={ `/drinks/${id}/in-progress` }>
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              onClick={ () => saveRecipesInProgress('',
+                ingredients.filter((item) => item !== null)) }
+            >
+              Continue Recipe
+            </button>
+          </Link>
+        </div>
       </div>
     )
   );
