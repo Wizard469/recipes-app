@@ -1,6 +1,6 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import renderWithRouter from '../helpers/renderWithRouter';
 import { meals } from "../../cypress/mocks/meals";
 import oneDrink from "../../cypress/mocks/oneDrink";
