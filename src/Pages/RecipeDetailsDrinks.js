@@ -8,8 +8,8 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 const copy = require('clipboard-copy');
 
 function RecipeDetailsDrinks() {
-  const { setFilterId, filterId, setRecommendations,
-    recommendations, setFavorite, saveRecipesInProgress,
+  const { setFilterId, filterId, setRecomendations,
+    recomendations, setFavorite, saveRecipesInProgress,
     foods, favoriteRecipe, setApp, ingredients } = useContext(context);
 
   const { id } = useParams();
@@ -30,7 +30,7 @@ function RecipeDetailsDrinks() {
     const IdFetch = async () => {
       const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
       const data = await response.json();
-      setRecommendations(data.meals);
+      setRecomendations(data.meals);
     };
     IdFetch();
   }, []);
@@ -40,7 +40,7 @@ function RecipeDetailsDrinks() {
     setCopying(!copying);
   };
 
-  const recommendationsFilter = recommendations.filter((_e, index) => index <= +'5');
+  const recomendationsFilter = recomendations.filter((_e, index) => index <= +'5');
   useEffect(() => {
     if (filterId.length) {
       setFavorite({
@@ -111,8 +111,8 @@ function RecipeDetailsDrinks() {
           <h3 data-testid="instructions">{filterId[0].strInstructions}</h3>
         </div>
         <div>
-          {recommendationsFilter.length
-            && recommendationsFilter.map((e, i) => (
+          {recomendationsFilter.length
+            && recomendationsFilter.map((e, i) => (
               <div
                 key={ e.strMeal }
                 data-testid={ `${i}-recomendation-card` }

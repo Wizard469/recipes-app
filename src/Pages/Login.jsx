@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { shape, func } from 'prop-types';
 import '../styles/Login.css';
 
 function Login({ history }) {
@@ -54,7 +54,11 @@ function Login({ history }) {
           />
         </label>
         <div className="login-button">
-          <button disabled={ disabled } type="submit" data-testid="login-submit-btn">
+          <button
+            disabled={ loginValidate() }
+            type="submit"
+            data-testid="login-submit-btn"
+          >
             Enter
           </button>
         </div>
