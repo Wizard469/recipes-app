@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { shape, func } from 'prop-types';
 import '../styles/Login.css';
+import Logo from '../images/Logo.png';
 
 function Login({ history }) {
   const [email, setEmail] = useState('');
@@ -30,7 +31,7 @@ function Login({ history }) {
 
   return (
     <div className="login-container">
-      <h1>Receitas da Vovó Moderna</h1>
+      <img src={ Logo } alt="Logomarca" className="logo" />
       <form onSubmit={ (event) => submitLogin(event) }>
         <label htmlFor="email-input">
           <input
